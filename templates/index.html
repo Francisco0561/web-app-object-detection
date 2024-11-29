@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Detection Comparison</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <header class="bg-blue-600 text-white p-4 shadow-md">
+        <h1 class="text-center text-2xl font-bold">Model Comparison</h1>
+    </header>
+
+    <main class="container mx-auto mt-8 p-4 bg-white shadow-md rounded-lg">
+        <form id="uploadForm" enctype="multipart/form-data" class="flex flex-col gap-4 items-center">
+            <input
+                type="file"
+                id="fileInput"
+                name="file"
+                accept="image/*"
+                required
+                class="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300 focus:outline-none"
+            />
+            <button
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md shadow-md"
+            >
+                Upload and Compare
+            </button>
+        </form>
+
+        <div id="result" class="mt-8">
+            <h2 class="text-lg font-semibold text-center mb-4 hidden" id="resultTitle">Detection Results:</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="text-center">
+                    <h3 class="font-semibold">Model 1: yolov5s.pt</h3>
+                    <img
+                        id="outputImage1"
+                        src=""
+                        alt="Model 1 Detection"
+                        class="max-w-full h-auto hidden rounded-lg border border-gray-300 shadow-md"
+                    />
+                </div>
+                <div class="text-center">
+                    <h3 class="font-semibold">Model 2: My model trained for cars</h3>
+                    <img
+                        id="outputImage2"
+                        src=""
+                        alt="Model 2 Detection"
+                        class="max-w-full h-auto hidden rounded-lg border border-gray-300 shadow-md"
+                    />
+                </div>
+            </div>
+        </div>
+    </main>
+
+     <section class="container mx-auto mt-12 p-4 bg-gray-50 shadow-md rounded-lg">
+        <h2 class="text-xl font-bold mb-4 text-center text-blue-600">Why YOLOv5s.pt and the COCO Dataset?</h2>
+
+        <div class="text-gray-800 leading-relaxed">
+            <h3 class="text-lg font-semibold mb-2">Why YOLOv5s.pt?</h3>
+            <ul class="list-disc list-inside mb-4">
+                <li><strong>Speed and Efficiency:</strong> YOLOv5s is the smallest and fastest variant, ideal for real-time applications requiring low latency. It balances speed and accuracy efficiently.</li>
+                <li><strong>Ease of Use:</strong> Pre-trained weights and a well-documented API make it easy to use and fine-tune on custom datasets.</li>
+                <li><strong>Versatility:</strong> YOLOv5s supports various input types (images, videos, streams) and runs seamlessly on CPUs, GPUs, and cloud instances.</li>
+                <li><strong>Community Support:</strong> Widely adopted, ensuring strong support and abundant resources for troubleshooting and enhancement.</li>
+                <li><strong>Real-Time Compatibility:</strong> Its architecture is optimized for tasks requiring real-time detection, such as video streaming.</li>
+            </ul>
+
+            <h3 class="text-lg font-semibold mb-2">Why the COCO Dataset?</h3>
+            <ul class="list-disc list-inside">
+                <li><strong>Comprehensive Coverage:</strong> The COCO dataset contains a wide variety of object categories, including a well-represented class for cars, making it ideal for training object detection models.</li>
+                <li><strong>Pre-Trained Models:</strong> YOLOv5s is trained on COCO, providing a strong baseline for detecting cars with high precision.</li>
+                <li><strong>Data Quality:</strong> COCO images are diverse, well-annotated, and represent various scenarios (e.g., urban environments, highways), ensuring robust model performance in real-world applications.</li>
+                <li><strong>Ease of Transfer Learning:</strong> Fine-tuning on COCO filters for cars allows for rapid adaptation to custom tasks.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="mt-8 text-center text-gray-500 text-sm">
+        <p>© 2024 Car Detection Comparison App. Powered by YOLOv5 and Flask.</p>
+    </footer>
+
+    <script>
+        document.getElementById('uploadForm').onsubmit = async function (e) {
+            e.preventDefault();
+            const formData = new FormData();
+            const fileInput = document.getElementById('fileInput').files[0];
+            formData.append("file", fileInput);
+
+            const response = await fetch('/detect', {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.json();
+            const outputImage1 = document.getElementById('outputImage1');
+            const outputImage2 = document.getElementById('outputImage2');
+            const resultTitle = document.getElementById('resultTitle');
+
+            if (result.model1_image && result.model2_image) {
+                outputImage1.src = result.model1_image;
+                outputImage2.src = result.model2_image;
+                outputImage1.style.display = 'block';
+                outputImage2.style.display = 'block';
+                outputImage1.classList.remove('hidden');
+                outputImage2.classList.remove('hidden');
+                resultTitle.classList.remove('hidden');
+            } else {
+                alert("Error: " + (result.error || "Unknown error"));
+            }
+        };
+    </script>
+
+</body>
+</html>
