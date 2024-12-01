@@ -101,9 +101,14 @@ The COCO dataset was chosen to fine-tune the custom model because of the followi
   
 ---
 
+### Model Metrics and Performace
+I have all of my metrics in the another repostiory that was used to train my model.  
+This link will take you to my performce metrics, they are all the way at the bottom of the notebook.  
+[Performace Metrics and Test Inferences](https://github.com/Francisco0561/RealTimeObjectDetectionTrain/blob/main/Project_Milestone.ipynb)
+
 ## Techonology Stack
-**Backend:** Flask
-**Frontend:** HTML, Tailwind CSS
-**Model:** YOLOv5s and custom-trained YOLOv5
+**Backend:** Flask  
+**Frontend:** HTML, Tailwind CSS  
+**Model:** YOLOv5s and custom-trained YOLOv5  
 
    
