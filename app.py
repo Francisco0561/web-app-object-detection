@@ -4,10 +4,15 @@ from pathlib import Path
 from yolov5 import detect
 
 app = Flask(__name__)
+"""
+Change MODEL_ONE and MODEL_TW0 to the models that you want to compare
+"""
+MODEL_ONE = "yolov5s.pt"
+MODEL_TWO = "best.pt"
 UPLOAD_FOLDER = Path('uploads/')
 OUTPUT_FOLDER = Path('outputs/')
-MODEL1_PATH = Path('yolov5/yolov5s.pt')  # Pretrained model
-MODEL2_PATH = Path('yolov5/best.pt')  # Custom model
+MODEL1_PATH = Path('yolov5/' + MODEL_ONE)  # Pretrained model
+MODEL2_PATH = Path('yolov5/' + MODEL_TWO)  # Custom model
 
 # Ensure upload and output folders exist
 UPLOAD_FOLDER.mkdir(parents=True, exist_ok=True)
