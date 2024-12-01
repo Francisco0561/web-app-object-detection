@@ -84,7 +84,7 @@ The COCO dataset was chosen to fine-tune the custom model because of the followi
    cd web-app-object-detection
 2. **Install Dependencies**:
    ```bash
-   pip install flask flask-cors
+   pip install flask flask-cors torch torchvision matplotlib 
    pip install -r yolov5/requirements.txt
 3. **Clone the YOLOv5 repository**:
    ```bash
