@@ -1,7 +1,7 @@
 # Car Detection Web Application
 
-This project is a web-based application that allows users to interact with a YOLOv5 machine learning model for object detection. Users can upload images for model comparison or stream a YouTube video for real-time detection. The application demonstrates the effectiveness of YOLOv5 and a custom-trained model using COCO dataset filters for detecting cars.
-
+This project is a web-based application that allows users to interact with a YOLOv5 machine learning model for object detection. Users can upload images for model comparison. The application demonstrates the effectiveness of YOLOv5 and a custom-trained model using COCO dataset filters for detecting cars.
+[Github Repo for training Aslo where my metrics are](https://github.com/Francisco0561/RealTimeObjectDetectionTrain)
 ---
 
 ## Features
